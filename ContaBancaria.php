@@ -1,14 +1,81 @@
 <?php
 
+declare(strict_types=1);
+
 class ContaBancaria {
-    public $banco;
-    public $nomeTitular = 'João Erick Barbosa';
-    public $numeroAgencia = '3467';
-    public $numeroConta;
-    public $saldo = 1000.00;
+    /*
+     * @var string
+     */
+    private $banco;
+    /*
+     * @var string
+     */
+    private $nomeTitular;
+    /*
+     * @var string
+     */
+    private $numeroAgencia;
+    /*
+     * @var string
+     */
+    private $numeroConta;
+    /*
+     * @var float
+     */
+    private $saldo;
+
+    public function __construct(
+        string $banco,
+        string $nomeTitular,
+        string $numeroAgencia,
+        string $numeroConta,
+        float $saldo
+    ){
+        $this->banco = $banco;
+        $this->nomeTitular = $nomeTitular;
+        $this->numeroAgencia = $numeroAgencia;
+        $this->numeroConta = $numeroConta;
+        $this->saldo = $saldo;
+    }
+
+    public function obterSaldo(): string {
+        return 'Seu saldo atual é: R$' . $this->saldo;
+    }
+
+    public function depositar(float $valor): string {
+        $this->saldo += $valor;
+        return 'Depósito de R$ ' . $valor . ' realizado!';
+    }
+
+    public function sacar(float $valor): string {
+        $this->saldo -= $valor;
+        return 'Saque de R$ ' . $valor . ' realizado!';
+    }
 }
 
-$conta = new ContaBancaria();
+$conta = new ContaBancaria(
+    'Banco do Brasil',
+    'João Erick Barbosa',
+    '8244',
+    '57354-10',
+    300.00
+);
 
-var_dump($conta);
-var_dump($conta->nomeTitular);
+
+echo $conta->obterSaldo();
+
+echo "<br>";
+
+echo $conta->depositar(300.00);
+
+echo "<br>";
+
+echo $conta->obterSaldo();
+
+echo "<br>";
+
+echo $conta->sacar(150.00);
+
+echo "<br>";
+
+echo $conta->obterSaldo();
